@@ -1,0 +1,15 @@
+{
+  "name": "crop-system-firestore-import",
+  "version": "1.0.0",
+  "description": "Firebase Firestore data import script for Crop Disease Expert System",
+  "main": "import_firestore.js",
+  "scripts": {
+    "import": "node import_firestore.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

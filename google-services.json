@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "725691181904",
+    "project_id": "crop-system-2de53",
+    "storage_bucket": "crop-system-2de53.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725691181904:android:83440e9717da3c8fe69a55",
+        "android_client_info": {
+          "package_name": "com.example.crop_system"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIZw5oAxQazF4r-4VezUXWFli0gZgJiW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

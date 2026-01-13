@@ -1,0 +1,1 @@
+final model = GenerativeModel(model: 'gemini-2.0-flash', apiKey: 'AIzaSyD4zXMOZ6l6h7LDIK5iWGxtBbjYhMQn0XU');
