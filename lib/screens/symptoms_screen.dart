@@ -17,12 +17,13 @@ class SymptomsScreen extends StatefulWidget {
 class _SymptomsScreenState extends State<SymptomsScreen> {
   late FirebaseService _firebaseService;
   late InferenceEngine _inferenceEngine;
-  
+
   Crop? _selectedCrop;
   List<Symptom> _allSymptoms = [];
   List<Disease> _possibleDiseases = [];
-  final Set<String> _selectedSymptomIds = {}; // Changed to Set for proper handling
-  
+  final Set<String> _selectedSymptomIds =
+      {}; // Changed to Set for proper handling
+
   int _currentSymptomIndex = 0;
   bool _isLoading = false;
   String? _error;
@@ -33,7 +34,7 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
     _firebaseService = FirebaseService();
     _inferenceEngine = InferenceEngine();
     _selectedCrop = widget.crop;
-    
+
     if (_selectedCrop != null) {
       _loadData();
     }
@@ -47,7 +48,9 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
 
     try {
       final symptoms = await _firebaseService.getAllSymptoms();
-      final diseases = await _firebaseService.getDiseasesByCropId(_selectedCrop!.id);
+      final diseases = await _firebaseService.getDiseasesByCropId(
+        _selectedCrop!.id,
+      );
 
       setState(() {
         _allSymptoms = symptoms;
@@ -128,9 +131,7 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(
-            child: Text('Error: ${snapshot.error}'),
-          );
+          return Center(child: Text('Error: ${snapshot.error}'));
         }
 
         final crops = snapshot.data ?? [];
@@ -168,7 +169,10 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
           children: [
             Icon(Icons.info_outline, size: 48, color: Colors.grey.shade400),
             const SizedBox(height: 12),
-            Text('No symptoms available', style: TextStyle(color: Colors.grey.shade600)),
+            Text(
+              'No symptoms available',
+              style: TextStyle(color: Colors.grey.shade600),
+            ),
           ],
         ),
       );
@@ -176,7 +180,8 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
 
     final currentSymptom = _allSymptoms[_currentSymptomIndex];
     final isSelected = _selectedSymptomIds.contains(currentSymptom.id);
-    final progress = ((_currentSymptomIndex + 1) / _allSymptoms.length * 100).toStringAsFixed(0);
+    final progress = ((_currentSymptomIndex + 1) / _allSymptoms.length * 100)
+        .toStringAsFixed(0);
 
     return Column(
       children: [
@@ -265,7 +270,9 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(
-                      color: isSelected ? Colors.green.shade600 : Colors.grey.shade300,
+                      color: isSelected
+                          ? Colors.green.shade600
+                          : Colors.grey.shade300,
                       width: isSelected ? 3 : 1,
                     ),
                   ),
@@ -338,7 +345,9 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.green.shade600,
                                   foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(vertical: 14),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -353,8 +362,13 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
                                 label: const Text('No'),
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: Colors.red.shade600,
-                                  side: BorderSide(color: Colors.red.shade600, width: 2),
-                                  padding: const EdgeInsets.symmetric(vertical: 14),
+                                  side: BorderSide(
+                                    color: Colors.red.shade600,
+                                    width: 2,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -403,7 +417,9 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
           child: Row(
             children: [
               ElevatedButton.icon(
-                onPressed: _currentSymptomIndex > 0 ? _goToPreviousSymptom : null,
+                onPressed: _currentSymptomIndex > 0
+                    ? _goToPreviousSymptom
+                    : null,
                 icon: const Icon(Icons.arrow_back),
                 label: const Text('Previous'),
                 style: ElevatedButton.styleFrom(
@@ -439,7 +455,8 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
       body: _selectedCrop == null
           ? _buildCropSelectionView()
           : _buildDiagnosisView(),
-      floatingActionButton: _selectedCrop != null && _selectedSymptomIds.isNotEmpty
+      floatingActionButton:
+          _selectedCrop != null && _selectedSymptomIds.isNotEmpty
           ? FloatingActionButton.extended(
               onPressed: _diagnose,
               icon: const Icon(Icons.check_circle),

@@ -34,10 +34,7 @@ class _ImageDiagnosisScreenState extends State<ImageDiagnosisScreen> {
   void initState() {
     super.initState();
     _firebaseService = FirebaseService();
-    _model = GenerativeModel(
-      model: 'gemini-2.0-flash',
-      apiKey: _apiKey,
-    );
+    _model = GenerativeModel(model: 'gemini-2.0-flash', apiKey: _apiKey);
     _selectedCrop = widget.crop;
   }
 
@@ -60,9 +57,9 @@ class _ImageDiagnosisScreenState extends State<ImageDiagnosisScreen> {
 
   Future<void> _analyzeImage() async {
     if (_selectedImage == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select an image')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Please select an image')));
       return;
     }
 
@@ -84,7 +81,8 @@ class _ImageDiagnosisScreenState extends State<ImageDiagnosisScreen> {
       final base64Image = base64Encode(imageBytes);
 
       // Prepare prompt for Gemini
-      final prompt = '''
+      final prompt =
+          '''
 Analyze this image of a ${_selectedCrop!.name} plant and provide a detailed diagnosis.
 
 Please provide:
@@ -100,10 +98,7 @@ Format your response clearly with these sections.
 
       // Send to Gemini
       final response = await _model.generateContent([
-        Content.multi([
-          TextPart(prompt),
-          DataPart('image/jpeg', imageBytes),
-        ]),
+        Content.multi([TextPart(prompt), DataPart('image/jpeg', imageBytes)]),
       ]);
 
       if (response.text != null && response.text!.isNotEmpty) {
@@ -147,9 +142,7 @@ Format your response clearly with these sections.
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(
-            child: Text('Error: ${snapshot.error}'),
-          );
+          return Center(child: Text('Error: ${snapshot.error}'));
         }
 
         final crops = snapshot.data ?? [];
@@ -219,10 +212,7 @@ Format your response clearly with these sections.
                       _analysisResult = null;
                     });
                   },
-                  child: Icon(
-                    Icons.close,
-                    color: Colors.grey.shade600,
-                  ),
+                  child: Icon(Icons.close, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -236,10 +226,7 @@ Format your response clearly with these sections.
               children: [
                 const Text(
                   'Plant Image',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
                 if (_selectedImage == null)
@@ -316,7 +303,9 @@ Format your response clearly with these sections.
           ),
           const SizedBox(height: 24),
           // Analyze Button
-          if (_selectedImage != null && !_isAnalyzing && _analysisResult == null)
+          if (_selectedImage != null &&
+              !_isAnalyzing &&
+              _analysisResult == null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: ElevatedButton.icon(
@@ -326,7 +315,10 @@ Format your response clearly with these sections.
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green.shade600,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 16,
+                  ),
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -400,10 +392,7 @@ Format your response clearly with these sections.
                     const SizedBox(height: 12),
                     Text(
                       _analysisResult!,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        height: 1.6,
-                      ),
+                      style: const TextStyle(fontSize: 13, height: 1.6),
                     ),
                   ],
                 ),

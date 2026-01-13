@@ -159,9 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     future: _cropsFuture,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                        return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
                         return Center(
                           child: Text(
@@ -199,11 +197,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.85,
-                          crossAxisSpacing: 12,
-                          mainAxisSpacing: 12,
-                        ),
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.85,
+                              crossAxisSpacing: 12,
+                              mainAxisSpacing: 12,
+                            ),
                         itemCount: crops.length,
                         itemBuilder: (context, index) {
                           final crop = crops[index];
@@ -251,10 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       '• Cowpea\n'
                       '• Bean\n'
                       '• Sesame',
-                      style: TextStyle(
-                        fontSize: 13,
-                        height: 1.6,
-                      ),
+                      style: TextStyle(fontSize: 13, height: 1.6),
                     ),
                   ),
                 ],
@@ -271,27 +266,18 @@ class _HomeScreenState extends State<HomeScreen> {
 class CropCard extends StatelessWidget {
   final Crop crop;
 
-  const CropCard({
-    super.key,
-    required this.crop,
-  });
+  const CropCard({super.key, required this.crop});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          '/symptoms',
-          arguments: crop,
-        );
+        Navigator.pushNamed(context, '/symptoms', arguments: crop);
       },
       child: Card(
         elevation: 4,
         shadowColor: Colors.green.withOpacity(0.3),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -301,10 +287,7 @@ class CropCard extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [
-                      Colors.green.shade100,
-                      Colors.green.shade50,
-                    ],
+                    colors: [Colors.green.shade100, Colors.green.shade50],
                   ),
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(16),
@@ -348,7 +331,6 @@ class CropCard extends StatelessWidget {
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-
                   ),
                   const SizedBox(height: 8),
                   Container(
@@ -380,11 +362,7 @@ class CropCard extends StatelessWidget {
 
   Widget _buildPlaceholderIcon() {
     return Center(
-      child: Icon(
-        Icons.grain,
-        size: 40,
-        color: Colors.green.shade300,
-      ),
+      child: Icon(Icons.grain, size: 40, color: Colors.green.shade300),
     );
   }
 }

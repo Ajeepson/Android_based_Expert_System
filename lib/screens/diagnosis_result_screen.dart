@@ -36,8 +36,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
 
   Disease? _getDiseaseById(String diseaseId) {
     try {
-      return widget.diseases
-          .firstWhere((disease) => disease.id == diseaseId);
+      return widget.diseases.firstWhere((disease) => disease.id == diseaseId);
     } catch (e) {
       return null;
     }
@@ -168,11 +167,12 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                         ),
                         decoration: BoxDecoration(
                           color: _getConfidenceColor(
-                                  _selectedResult.confidence)
-                              .withOpacity(0.2),
+                            _selectedResult.confidence,
+                          ).withOpacity(0.2),
                           border: Border.all(
                             color: _getConfidenceColor(
-                                _selectedResult.confidence),
+                              _selectedResult.confidence,
+                            ),
                           ),
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -181,7 +181,8 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: _getConfidenceColor(
-                                _selectedResult.confidence),
+                              _selectedResult.confidence,
+                            ),
                           ),
                         ),
                       ),
@@ -214,10 +215,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                     const SizedBox(height: 12),
                     Text(
                       selectedDisease.description,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        height: 1.6,
-                      ),
+                      style: const TextStyle(fontSize: 13, height: 1.6),
                     ),
                     const SizedBox(height: 16),
                     Row(
@@ -422,8 +420,9 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                                   vertical: 4,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: _getConfidenceColor(result.confidence)
-                                      .withOpacity(0.2),
+                                  color: _getConfidenceColor(
+                                    result.confidence,
+                                  ).withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Text(
@@ -432,7 +431,8 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
                                     color: _getConfidenceColor(
-                                        result.confidence),
+                                      result.confidence,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -473,10 +473,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
         const SizedBox(width: 8),
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -495,10 +492,7 @@ class _DiagnosisResultScreenState extends State<DiagnosisResultScreen> {
         children: [
           Text(
             label,
-            style: TextStyle(
-              fontSize: 11,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
           ),
           const SizedBox(height: 4),
           Text(
